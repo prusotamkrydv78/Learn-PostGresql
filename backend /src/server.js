@@ -40,6 +40,13 @@ app.use("/auth/", authRoutes);
 app.use("/movie", movieRouter);
 app.use("/watchlist", watchlistRouter);
 
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Endpoint not found",
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
