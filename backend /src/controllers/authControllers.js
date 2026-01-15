@@ -61,7 +61,13 @@ const loginUser = async (req, res) => {
         })
     }
     const token = jwt.sign({ id: userExist.id, name: userExist.name, email: userExist.email }, process.env.JWT_SECRET, { expiresIn: '1d' })
-    res.status(200).json({
+
+    res.status(200).cookie("jwt", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV == "pro",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }).json({
         sucess: true, data: {
             id: userExist.id,
             name: userExist.name,
@@ -72,4 +78,17 @@ const loginUser = async (req, res) => {
 
 
 }
-export { registerUser, loginUser }
+
+const logout = async (req, res) => {
+    res.cookie("jwt", "", {
+        httpOnly: true,
+        expires: new Date(0)
+    })
+        .status(200)
+        .json({
+            sucess: true,
+            message: "User logout sucessfully"
+        })
+
+}
+export { registerUser, loginUser,logout }

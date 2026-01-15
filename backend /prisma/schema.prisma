@@ -36,6 +36,7 @@ model Movie {
   createAt        DateTime        @default(now())
   watchListItemms WatchListItem[] @relation("Movies")
   userId          String
+  //relations
   user            User            @relation("User", fields: [userId], references: [id])
   creator         User            @relation("MovieCreator", fields: [createBy], references: [id])
 }
@@ -53,6 +54,8 @@ model WatchListItem {
 
   user  User  @relation("User", fields: [userId], references: [id], onDelete: Cascade)
   movie Movie @relation("Movies", fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId,movieId])
 }
 
 enum WatchListStatus {
