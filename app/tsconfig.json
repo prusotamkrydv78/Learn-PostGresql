@@ -14,5 +14,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+, "components/SafeAreaContextView.jsx", "app/(app)/_layout.jsx", "app/(app)/index.jsx", "app/(auth)/_layout.jsx", "app/(auth)/index.jsx", "app/_layout.jsx"  ]
 }
